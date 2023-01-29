@@ -1,9 +1,8 @@
 package CitiesDirectory;
 
-import com.google.gson.Gson;
-
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,30 +22,12 @@ public class Main {
             cityList.add(new City(name, region, district, Integer.parseInt(population), foundation));
         }
         scanner.close();
+
+        //Collections.sort(cityList); // sort by name
+        Collections.sort(cityList, new ComporatorByDistrictAndName());
+
         for (City city : cityList) {
             System.out.println(city.toString());
         }
-    }
-}
-
-class City {
-    private String name;
-    private String region;
-    private String district;
-    private int population;
-    private String foundation;
-
-    public City(String name, String region, String district, int population, String foundation) {
-        this.name = name;
-        this.region = region;
-        this.district = district;
-        this.population = population;
-        this.foundation = foundation;
-    }
-
-    @Override
-    public String toString() {
-        Gson gson = new Gson();
-        return "City" + gson.toJson(this);
     }
 }
