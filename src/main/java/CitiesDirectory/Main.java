@@ -2,7 +2,6 @@ package CitiesDirectory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,11 +22,27 @@ public class Main {
         }
         scanner.close();
 
-        //Collections.sort(cityList); // sort by name
-        Collections.sort(cityList, new ComporatorByDistrictAndName());
-
-        for (City city : cityList) {
-            System.out.println(city.toString());
+        int[] population = new int[cityList.size()];
+        for (int i = 0; i < population.length; i++) {
+            population[i] = cityList.get(i).getPopulation();
         }
+
+        int index = 0;
+        int max_population = population[index];
+        for (int i = 1; i < population.length; i++) {
+            if (population[i] > max_population) {
+                index = i;
+                max_population = population[index];
+            }
+        }
+
+        System.out.println("[" + index + "] = " + max_population);
+
+//        Collections.sort(cityList); // sort by city name
+//        Collections.sort(cityList, new ComporatorByDistrictAndName()); // sort by district and city name
+
+//        for (City city : cityList) {
+//            System.out.println(city.toString());
+//        }
     }
 }

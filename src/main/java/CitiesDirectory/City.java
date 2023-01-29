@@ -25,6 +25,10 @@ public class City implements Comparable<City> {
         return district;
     }
 
+    public int getPopulation() {
+        return population;
+    }
+
     @Override
     public String toString() {
         Gson gson = new Gson();
