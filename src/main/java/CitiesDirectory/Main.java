@@ -2,9 +2,7 @@ package CitiesDirectory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
@@ -22,27 +20,20 @@ public class Main {
         }
         scanner.close();
 
-        int[] population = new int[cityList.size()];
-        for (int i = 0; i < population.length; i++) {
-            population[i] = cityList.get(i).getPopulation();
-        }
-
-        int index = 0;
-        int max_population = population[index];
-        for (int i = 1; i < population.length; i++) {
-            if (population[i] > max_population) {
-                index = i;
-                max_population = population[index];
+        // filling Map with names of region and number of cities
+        Map<String, Integer> regions = new LinkedHashMap<>();
+        for (int i = 0; i < cityList.size(); i++) {
+            String name_of_region = cityList.get(i).getRegion();
+            if (regions.containsKey(name_of_region)) {
+                regions.replace(name_of_region, regions.get(name_of_region) + 1);
+            } else {
+                regions.put(name_of_region, 1);
             }
         }
 
-        System.out.println("[" + index + "] = " + max_population);
+        for (String region : regions.keySet()) {
+            System.out.println(region + " - " + regions.get(region));
+        }
 
-//        Collections.sort(cityList); // sort by city name
-//        Collections.sort(cityList, new ComporatorByDistrictAndName()); // sort by district and city name
-
-//        for (City city : cityList) {
-//            System.out.println(city.toString());
-//        }
     }
 }
